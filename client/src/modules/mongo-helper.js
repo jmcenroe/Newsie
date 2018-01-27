@@ -2,41 +2,38 @@
 
 const db = require('./db-setup');
 
-function getArticle(record) {
-    return record.article;
+function getDescription(record) {
+    return record.description;
 }
 
-function documentToArticleData(document) {
+function documentToHomeData(document) {
     return {
         id: document._id,
-        title: document.title.map(getDescription),
-        date: document.date.map(getDescription),
-        url: document.url.map(getDescription)
+        home: document.articles.map(getDescription),
+        saved: document.saved.map(getDescription)
     };
 }
 
 function getDefaultArticleData() {
     return {
-        title: [],
-        date: [],
-        url: []
+        home: [],
+        saved: []
     };
 }
 
-function descriptionArticleToObject(description) {
+function descriptionToObject(description) {
     return { description: description };
 }
 
-function articleDataToDocument(todoData) {
+function articleDataToDocument(homeData) {
     return {
-        title: articleData.title.map(descriptionToObject),
-        date: articleData.date.map(descriptionToObject),
-        url: articleData.url.map(descriptionToObject)
+        home: articleData.home.map(descriptionToObject),
+        saved: articleData.saved.map(descriptionToObject)
     };
 }
 
 function readArticleList(callback) {
-    db.ArticleList.findOne({}, function (error, document) {
+    db.articleList.findOne({}, function (error, document) {
         let articleData = null;
 
         if (!error) {
@@ -49,16 +46,15 @@ function readArticleList(callback) {
     });
 }
 
-function updateArticleList(articleData, callback) {
-    const docData = articleDataToDocument(articleData);
+function updateArticleList(homeData, callback) {
+    const docData = homeDataToDocument(homeData);
 
-    db.ArticleList.findOne({ _id: articleData.id }, function (error, document) {
+    db.Articles.findOne({ _id: articleData.id }, function (error, document) {
         if (error) {
             callback(error);
         } else {
-            document.title = docData.title;
-            document.date = docData.date;
-            document.url = docData.url;
+            document.home = docData.home;
+            document.saved = docData.saved;
             document.save((saveError) => callback(saveError, document));
         }
     });
@@ -80,6 +76,6 @@ function createArticleList(articleData, callback) {
 
 module.exports = {
     createArticleList: createArticleList,
-    readArticleList: readArticleList,
-    updateArticleList: updateArticleList
+    readArticlesList: readArticleList,
+    // removeArticles: removeArticles
 }
