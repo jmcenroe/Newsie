@@ -3,15 +3,15 @@ import axios from 'axios';
 const articleListPath = '/articles';
 
 function getArticleData() {
-    return axios.get(articlesPath);
+    return axios.get(articleListPath);
 }
 
 function createArticleData(ArticleData) {
-    return axios.post(articlesPath, articleData);
+    return axios.post(articleListPath, articleData);
 }
 
 function removeArticleData(articleData) {
-    return axios.remove(todolistPath, todoData);
+    return axios.remove(articlePath, todoData);
 }
 
 export default {
