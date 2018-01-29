@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -8,11 +9,9 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-const app = express();
+var API = require('./routes/index')
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+const app = express();
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -23,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static("client/build"));
 
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "./client/public/index.html"));
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
 // catch 404 and forward to error handler

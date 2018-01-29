@@ -3,8 +3,6 @@
 const db = require('./models');
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/scraper", {});
-
-db.mongoose = mongoose;
+mongoose.connect(process.env.MONGODB_URI, {});
 
 module.exports = db;
