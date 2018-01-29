@@ -1,13 +1,12 @@
-import React from 'react';
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const render =
-    (props) =>
-        <li>
-            <input
-                type="checkbox"
-                onClick={props.savedItem.bind(null, props.article, !props.checked)}
-                checked={props.checked} />
-            {props.article}
-        </li>;
+const articleSchema = new Schema {(
+	url: String,
+	title: String,
+	date: String
+	)};
 
-export default render;
+const article = mongoose.model("article", articleSchema);
+
+module.exports = article;

@@ -1,16 +1,5 @@
-'use strict';
+const article = require("./article");
 
-const fs = require('fs');
-const exclusions = ['.', '..', 'index.js'];
-
-const models = fs.readdirSync(__dirname, { encoding: 'utf8' })
-    .filter(filename => exclusions.indexOf(filename) === -1)
-    .reduce(function (modelObj, filename) {
-        const model = require(`./${filename}`);
-        const modelName = model.modelName;
-        modelObj[modelName] = model;
-
-        return modelObj;
-    }, {});
-
-module.exports = models;
+module.exports = {
+	article: article
+}
